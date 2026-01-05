@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   CheckCircle, 
-  Download, 
   ChevronDown, 
   ShieldCheck, 
   AlertTriangle, 
   ArrowDown, 
-  Play, 
   Check, 
   Mail, 
   Printer, 
@@ -14,14 +12,11 @@ import {
   Star, 
   Puzzle, 
   MessageCircle, 
-  Clock, 
   BookOpen,
   MousePointer2,
   Lock,
   Award,
-  Zap,
-  VolumeX,
-  Volume2
+  VolumeX
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -31,14 +26,18 @@ const App: React.FC = () => {
   const playerRef = useRef<any>(null);
 
   useEffect(() => {
-    // Initialize Vimeo Player
-    if (videoRef.current && (window as any).Vimeo) {
-      playerRef.current = new (window as any).Vimeo.Player(videoRef.current);
-      playerRef.current.setMuted(true);
-      playerRef.current.play().catch((error: any) => {
-        console.log("Autoplay blocked or error:", error);
-      });
-    }
+    const initPlayer = () => {
+      if (videoRef.current && (window as any).Vimeo) {
+        playerRef.current = new (window as any).Vimeo.Player(videoRef.current);
+        playerRef.current.setMuted(true);
+        playerRef.current.play().catch((error: any) => {
+          console.log("Autoplay blocked or error:", error);
+        });
+      }
+    };
+
+    const timer = setTimeout(initPlayer, 500);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleUnmute = () => {
@@ -204,7 +203,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 4: Why it works? (Light Blue tone) */}
+      {/* SECTION 4: Why it works? */}
       <section className="bg-[#EBF8FF] py-16 md:py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl md:text-4xl font-heading font-bold text-blue-900 mb-10 md:mb-12 px-2">
@@ -229,7 +228,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 5: Results (Light Green tone) */}
+      {/* SECTION 5: Results */}
       <section className="bg-[#F0FFF4] py-16 md:py-20 px-4">
         <div className="max-w-4xl mx-auto">
           <img src="https://i.imgur.com/kPw6VBd.png" alt="Criança lendo feliz" className="mx-auto rounded-2xl md:rounded-3xl shadow-lg mb-10 md:mb-12 max-w-full" />
@@ -246,7 +245,7 @@ const App: React.FC = () => {
               "Vai aprender no ritmo dele, sem frustração ou comparação",
               "E o melhor: vai começar a gostar do momento de leitura em casa"
             ].map((text, i) => (
-              <div key={i} className="flex items-center gap-4 bg-white p-5 md:p-6 rounded-[2rem] shadow-md border border-green-200 transition-all hover:shadow-lg hover:border-green-400 group">
+              <div key={i} className="flex items-center gap-4 bg-white p-5 md:p-6 rounded-[2rem] shadow-md border border-green-200 group">
                 <div className="w-10 h-10 md:w-12 md:h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-green-500 transition-colors">
                   <Check className="w-6 h-6 text-green-500 font-black group-hover:text-white transition-colors" />
                 </div>
@@ -254,10 +253,6 @@ const App: React.FC = () => {
               </div>
             ))}
           </div>
-
-          <p className="text-lg md:text-2xl text-green-800 font-medium text-center mb-10 md:mb-12 leading-relaxed px-2">
-            Com o Kit de Grafismo Fonético, seu filho desenvolve o cérebro para aprender a ler com leveza, no tempo dele, e com resultados visíveis em poucos dias.
-          </p>
 
           <div className="bg-white p-6 md:p-10 rounded-3xl md:rounded-[3rem] shadow-xl text-center border-2 md:border-4 border-green-100">
             <h4 className="text-xl md:text-3xl font-heading font-bold text-blue-900 mb-6 md:mb-8">
@@ -270,7 +265,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 6: What they will learn (New color tone) */}
+      {/* SECTION 6: What they will learn */}
       <section className="bg-[#F7FAFC] py-16 md:py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-5xl font-heading font-bold text-center text-blue-900 mb-12 md:mb-16">
@@ -278,25 +273,25 @@ const App: React.FC = () => {
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            <div className="bg-white p-6 md:p-8 rounded-2xl md:rounded-[2.5rem] shadow-md border border-blue-50 relative overflow-hidden group hover:shadow-lg transition-all">
+            <div className="bg-white p-6 md:p-8 rounded-2xl shadow-md border border-blue-50 relative overflow-hidden group">
               <Star className="absolute -top-2 -right-2 md:top-4 md:right-4 text-yellow-300 w-12 h-12 md:w-16 md:h-16 opacity-20" />
               <h4 className="text-xl md:text-2xl font-bold text-blue-900 mb-3 md:mb-4">Reconhecimento de Sons e Letras</h4>
               <p className="text-base md:text-lg text-gray-600">Cada som é associado a fortalecendo as conexões cerebrais de forma sólida e duradoura.</p>
             </div>
             
-            <div className="bg-white p-6 md:p-8 rounded-2xl md:rounded-[2.5rem] shadow-md border border-blue-50 relative overflow-hidden group hover:shadow-lg transition-all">
+            <div className="bg-white p-6 md:p-8 rounded-2xl shadow-md border border-blue-50 relative overflow-hidden group">
               <Puzzle className="absolute -top-2 -right-2 md:top-4 md:right-4 text-blue-300 w-12 h-12 md:w-16 md:h-16 opacity-20" />
               <h4 className="text-xl md:text-2xl font-bold text-blue-900 mb-3 md:mb-4">Formação de Palavras</h4>
-              <p className="text-base md:text-lg text-gray-600">Atividades dinâmicas que transformam a construção de palavras em uma experiência divertida e intuitiva.</p>
+              <p className="text-base md:text-lg text-gray-600">Atividades dinâmicas que transformam a construção de palavras em uma experienca divertida e intuitiva.</p>
             </div>
             
-            <div className="bg-white p-6 md:p-8 rounded-2xl md:rounded-[2.5rem] shadow-md border border-blue-50 relative overflow-hidden group hover:shadow-lg transition-all">
+            <div className="bg-white p-6 md:p-8 rounded-2xl shadow-md border border-blue-50 relative overflow-hidden group">
               <MessageCircle className="absolute -top-2 -right-2 md:top-4 md:right-4 text-green-300 w-12 h-12 md:w-16 md:h-16 opacity-20" />
               <h4 className="text-xl md:text-2xl font-bold text-blue-900 mb-3 md:mb-4">Compreensão e Leitura Fluente</h4>
               <p className="text-base md:text-lg text-gray-600">Exercícios práticos que aprimoram a compreensão do que está sendo lido, ajudando seu filho a ganhar fluência e confiança.</p>
             </div>
             
-            <div className="bg-white p-6 md:p-8 rounded-2xl md:rounded-[2.5rem] shadow-md border border-blue-50 relative overflow-hidden group hover:shadow-lg transition-all">
+            <div className="bg-white p-6 md:p-8 rounded-2xl shadow-md border border-blue-50 relative overflow-hidden group">
               <BookOpen className="absolute -top-2 -right-2 md:top-4 md:right-4 text-pink-300 w-12 h-12 md:w-16 md:h-16 opacity-20" />
               <h4 className="text-xl md:text-2xl font-bold text-blue-900 mb-3 md:mb-4">Guia Passo a Passo com Ilustrações</h4>
               <p className="text-base md:text-lg text-gray-600">Instruções visuais e detalhadas para que cada fase do aprendizado seja clara e tranquila, sem complicações.</p>
@@ -343,12 +338,12 @@ const App: React.FC = () => {
           </div>
           
           <button className="w-full md:w-auto bg-green-500 hover:bg-green-600 text-white font-heading font-bold text-lg md:text-2xl px-10 md:px-12 py-4 md:py-6 rounded-2xl md:rounded-3xl shadow-xl transition-all transform hover:scale-105">
-            baixar atividades agora
+            BAIXAR ATIVIDADES AGORA
           </button>
         </div>
       </section>
 
-      {/* SECTION 8: 10 Min Benefits (Light Grey) */}
+      {/* SECTION 8: 10 Min Benefits */}
       <section className="bg-gray-100 py-16 md:py-24 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-2xl md:text-4xl font-heading font-bold text-blue-900 mb-12 md:mb-16 max-w-4xl mx-auto leading-tight px-2">
@@ -362,7 +357,7 @@ const App: React.FC = () => {
               { id: 3, text: "Crianças com dificuldade de leitura: Para crianças que enfrentam desafios na leitura e compreensão, o Método de Grafismo Fonético oferece um suporte extra com atividades lúdicas que facilitam o entendimento." },
               { id: 4, text: "Escolas e instituições que valorizam inovação no ensino: Perfeito para escolas que buscam métodos comprovados, o grafismo fonético traz uma abordagem moderna que gera resultados reais e duraduros." }
             ].map((item) => (
-              <div key={item.id} className="bg-white p-8 md:p-10 rounded-2xl md:rounded-[3rem] text-left shadow-sm border border-gray-200 relative pt-12 md:pt-10">
+              <div key={item.id} className="bg-white p-8 md:p-10 rounded-2xl text-left shadow-sm border border-gray-200 relative pt-12 md:pt-10">
                 <span className="absolute -top-4 -left-2 md:-top-6 md:-left-4 w-12 h-12 md:w-16 md:h-16 bg-blue-500 text-white rounded-full flex items-center justify-center text-xl md:text-3xl font-black shadow-lg">{item.id}</span>
                 <p className="text-base md:text-lg text-gray-700 leading-relaxed">{item.text}</p>
               </div>
@@ -371,15 +366,15 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 9: Social Proof (Light Peach/Flesh tone) */}
+      {/* SECTION 9: Social Proof */}
       <section className="bg-[#FFF5F2] py-16 md:py-24 px-4">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-2xl md:text-4xl font-heading font-bold text-blue-900 mb-12 md:mb-16 px-2">
             Veja o que Pais e educadores dizem sobre o Kit de Grafismo Fonético
           </h2>
           
-          <div className="mb-10 md:mb-12">
-            <img src="https://i.imgur.com/fKK43ZL.png" alt="Depoimentos sociais" className="rounded-2xl md:rounded-3xl shadow-xl mx-auto border-4 md:border-8 border-white max-w-full" />
+          <div className="mb-10 md:mb-12 flex justify-center">
+            <img src="https://i.imgur.com/fKK43ZL.png" alt="Depoimentos reais" className="rounded-2xl md:rounded-3xl shadow-xl border-4 md:border-8 border-white max-w-full" />
           </div>
           
           <button className="w-full md:w-auto bg-green-500 hover:bg-green-600 text-white font-heading font-bold text-lg md:text-2xl px-10 md:px-12 py-4 md:py-6 rounded-2xl md:rounded-3xl shadow-xl transition-all transform hover:scale-105">
@@ -388,22 +383,14 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 10: Kit Content & Carousel */}
+      {/* SECTION 10: Kit Content */}
       <section className="py-16 md:py-24 bg-white px-4">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-2xl md:text-4xl font-heading font-bold text-blue-900 mb-12 md:mb-16 px-2">
             Veja tudo que você vai receber no kit de atividades
           </h2>
           
-          <div className="flex gap-4 md:gap-6 overflow-x-auto pb-8 no-scrollbar px-2 md:px-4 mb-12 md:mb-16 snap-x snap-mandatory">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="min-w-[260px] md:min-w-[400px] h-48 md:h-64 bg-blue-100 rounded-2xl md:rounded-3xl flex-shrink-0 shadow-inner flex items-center justify-center snap-center">
-                 <BookOpen className="w-12 h-12 md:w-16 md:h-16 text-blue-300" />
-              </div>
-            ))}
-          </div>
-
-          <div className="max-w-4xl mx-auto bg-pastel-blue p-6 md:p-16 rounded-3xl md:rounded-[4rem] shadow-xl border border-blue-100">
+          <div className="max-w-4xl mx-auto bg-pastel-blue p-6 md:p-16 rounded-3xl shadow-xl border border-blue-100">
             <h3 className="text-2xl md:text-3xl font-heading font-bold text-blue-900 mb-8 md:mb-10">
               + de 100 Atividades de Grafismo Fonético
             </h3>
@@ -414,7 +401,7 @@ const App: React.FC = () => {
                 "Atividades Nível 02: Palavras com 03 Sílabas",
                 "Atividades Grafismo na letra Cursiva e Bastão"
               ].map((text, i) => (
-                <div key={i} className="flex items-center gap-3 md:gap-4 bg-white/60 p-4 md:p-5 rounded-xl md:rounded-2xl border border-blue-50">
+                <div key={i} className="flex items-center gap-3 md:gap-4 bg-white/60 p-4 md:p-5 rounded-xl border border-blue-50">
                   <CheckCircle className="w-5 h-5 md:w-6 md:h-6 text-green-500 flex-shrink-0" />
                   <span className="font-bold text-blue-900 text-sm md:text-base">{text}</span>
                 </div>
@@ -428,40 +415,40 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 11: Simple to start (Darker tone) */}
+      {/* SECTION 11: How it works */}
       <section className="bg-blue-50 py-16 md:py-24 px-4">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-blue-900 mb-12 md:mb-20 px-2 leading-tight">Muito simples de começar a utilizar!</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
             <div className="space-y-4 md:space-y-6">
-              <div className="w-20 h-20 md:w-24 md:h-24 bg-blue-500 rounded-2xl md:rounded-3xl flex items-center justify-center mx-auto text-white shadow-xl">
+              <div className="w-20 h-20 md:w-24 md:h-24 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto text-white shadow-xl">
                 <Mail className="w-10 h-10 md:w-12 md:h-12" />
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-blue-900 uppercase">CHEGA NO E-MAIL</h3>
-              <p className="text-base md:text-lg text-gray-600 leading-relaxed px-4 md:px-0">Após a compra você recebe no e-mail o acesso a plataforma com arquivos em formato PDF.</p>
+              <p className="text-base md:text-lg text-gray-600 leading-relaxed">Após a compra você recebe no e-mail o acesso a plataforma com arquivos em formato PDF.</p>
             </div>
             
             <div className="space-y-4 md:space-y-6">
-              <div className="w-20 h-20 md:w-24 md:h-24 bg-green-500 rounded-2xl md:rounded-3xl flex items-center justify-center mx-auto text-white shadow-xl">
+              <div className="w-20 h-20 md:w-24 md:h-24 bg-green-500 rounded-2xl flex items-center justify-center mx-auto text-white shadow-xl">
                 <Printer className="w-10 h-10 md:w-12 md:h-12" />
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-blue-900 uppercase">VOCÊ IMPRIME</h3>
-              <p className="text-base md:text-lg text-gray-600 leading-relaxed px-4 md:px-0">Você pode imprimir quando quiser, pois o acesso é VITALÍCIO e quantas vezes desejar.</p>
+              <p className="text-base md:text-lg text-gray-600 leading-relaxed">Você pode imprimir quando quiser, pois o acesso é VITALÍCIO e quantas vezes desejar.</p>
             </div>
             
             <div className="space-y-4 md:space-y-6">
-              <div className="w-20 h-20 md:w-24 md:h-24 bg-pink-500 rounded-2xl md:rounded-3xl flex items-center justify-center mx-auto text-white shadow-xl">
+              <div className="w-20 h-20 md:w-24 md:h-24 bg-pink-500 rounded-2xl flex items-center justify-center mx-auto text-white shadow-xl">
                 <Heart className="w-10 h-10 md:w-12 md:h-12" />
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-blue-900 uppercase">OS PEQUENOS AMAM</h3>
-              <p className="text-base md:text-lg text-gray-600 leading-relaxed px-4 md:px-0">Temos uma ótima notícia pra você, MÃOS À OBRA! Importante que sempre auxilie seu pequeno nas atividades.</p>
+              <p className="text-base md:text-lg text-gray-600 leading-relaxed">Temos uma ótima notícia pra você, MÃOS À OBRA! Importante que sempre auxilie seu pequeno nas atividades.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 12: Bonuses (Strong Yellow) */}
+      {/* SECTION 12: Bonuses */}
       <section className="bg-[#FFD700] py-16 md:py-24 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-2xl md:text-5xl font-heading font-bold text-blue-900 mb-4 italic">e ainda não acabou...</h2>
@@ -469,20 +456,20 @@ const App: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
             {[
-              { title: "Caderno Alfabeto com Imagem", desc: "Apresenta cada letra do alfabeto com imagens associadas, ajudando na familiarização das crianças com as letras de forma visual e divertida.", oldPrice: 37 },
-              { title: "Caderno Quebra Cabeça Alfabeto", desc: "Atividades de quebra-cabeça com letras do alfabeto para fixação divertida e interativa.", oldPrice: 47 },
-              { title: "Caderno Formando Palavras", desc: "Exercícios de formação de palavras que incentivam leitura e escrita, ajudando as crianças a construir vocabulário.", oldPrice: 57 },
-              { title: "Caderno Alfabeto com Relógio", desc: "Caderno interativo que ensina as letras do alfabeto junto a um relógio, promovendo a leitura e noções de tempo de forma lúdica.", oldPrice: 39 },
-              { title: "Caderno Alfabeto Traçado", desc: "Caderno com letras do alfabeto traçadas, perfeito para que as crianças pratiquem a escrita.", oldPrice: 37 },
-              { title: "Caderno Alfabeto com Carinhas", desc: "Caderno com letras do alfabeto e expressões divertidas para tornar o aprendizado mais alegre.", oldPrice: 37 }
+              { title: "Caderno Alfabeto com Imagem", desc: "Apresenta cada letra do alfabeto com imagens associadas.", oldPrice: 37 },
+              { title: "Caderno Quebra Cabeça Alfabeto", desc: "Atividades de quebra-cabeça com letras do alfabeto.", oldPrice: 47 },
+              { title: "Caderno Formando Palavras", desc: "Exercícios de formação de palavras que incentivam leitura.", oldPrice: 57 },
+              { title: "Caderno Alfabeto com Relógio", desc: "Caderno interativo que ensina as letras junto ao relógio.", oldPrice: 39 },
+              { title: "Caderno Alfabeto Traçado", desc: "Caderno perfeito para que as crianças pratiquem a escrita.", oldPrice: 37 },
+              { title: "Caderno Alfabeto com Carinhas", desc: "Caderno com expressões divertidas para um alegre aprendizado.", oldPrice: 37 }
             ].map((bonus, i) => (
-              <div key={i} className="bg-white p-6 md:p-10 rounded-2xl md:rounded-[3rem] shadow-xl border-2 md:border-4 border-white transition-transform hover:-translate-y-2 text-left flex flex-col justify-between">
+              <div key={i} className="bg-white p-6 md:p-10 rounded-2xl shadow-xl border-2 md:border-4 border-white text-left flex flex-col justify-between">
                 <div>
-                  <h4 className="text-xl md:text-2xl font-bold text-blue-900 mb-4 md:mb-6">{bonus.title}</h4>
-                  <p className="text-sm md:text-base text-gray-600 leading-relaxed mb-6 md:mb-10">{bonus.desc}</p>
+                  <h4 className="text-xl md:text-2xl font-bold text-blue-900 mb-4">{bonus.title}</h4>
+                  <p className="text-sm md:text-base text-gray-600 leading-relaxed mb-6">{bonus.desc}</p>
                 </div>
-                <div className="border-t pt-4 md:pt-6">
-                  <p className="text-gray-400 line-through text-base md:text-lg">De R$ {bonus.oldPrice}</p>
+                <div className="border-t pt-4">
+                  <p className="text-gray-400 line-through">De R$ {bonus.oldPrice}</p>
                   <p className="text-2xl md:text-3xl font-black text-green-500">HOJE: GRÁTIS</p>
                 </div>
               </div>
@@ -491,141 +478,77 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 13: Price Recap (Light Orange) */}
+      {/* SECTION 13: Price */}
       <section className="bg-[#FFE4B5] py-16 md:py-24 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-heading font-bold text-blue-900 mb-12 md:mb-16 max-w-2xl mx-auto leading-tight px-2">
-            Recapitulando tudo o que você vai receber junto com o Kit Atividades Grafismo Fonético
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-blue-900 mb-12 md:mb-16 px-2">
+            Acesso completo ao Kit Atividades Grafismo Fonético
           </h2>
           
-          <div className="bg-white rounded-3xl md:rounded-[4rem] shadow-2xl overflow-hidden mb-12 md:mb-16 text-left">
-            <div className="p-6 md:p-16 space-y-4">
-              {[
-                { name: "Atividades Grafismo Fonético Nível 1, 2 e 3", price: 197 },
-                { name: "Bônus 01: Caderno Alfabeto com Imagem", price: 37 },
-                { name: "Bônus 02: Caderno Quebra-Cabeça Alfabeto", price: 47 },
-                { name: "Bônus 03: Caderno Formando Palavras", price: 57 },
-                { name: "Bônus 04: Caderno Alfabeto com Relógio", price: 39 },
-                { name: "Bônus 05: Caderno Alfabeto Traçado", price: 27 },
-                { name: "Bônus 06: Caderno Alfabeto com Carinhas", price: 49 },
-                { name: "Suporte Profissional", price: "INCLUSO" },
-                { name: "Garantia Incondicional", price: "INCLUSO" }
-              ].map((item, i) => (
-                <div key={i} className="flex justify-between items-center border-b border-gray-100 pb-2 md:pb-3 last:border-0 last:pb-0">
-                  <span className="text-blue-900 font-medium text-xs md:text-lg pr-2">{item.name}</span>
-                  <span className="text-gray-400 font-bold whitespace-nowrap text-xs md:text-base">
-                    {typeof item.price === 'number' ? `De R$${item.price}` : item.price}
-                  </span>
-                </div>
-              ))}
-            </div>
-            
+          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden mb-12 text-left">
             <div className="bg-blue-50 p-8 md:p-16 text-center">
-              <p className="text-gray-400 text-lg md:text-xl font-medium mb-4 md:mb-6">No total tudo deveria custar R$ 453,00</p>
-              <p className="text-base md:text-xl text-blue-900 mb-2 font-bold uppercase tracking-widest px-2">Mas hoje você vai ter acesso completo por</p>
+              <p className="text-base md:text-xl text-blue-900 mb-2 font-bold uppercase tracking-widest">Aproveite a promoção por apenas</p>
               <div className="flex items-baseline justify-center gap-1 md:gap-2 mb-4">
                 <span className="text-2xl md:text-3xl font-bold text-blue-900">R$</span>
                 <span className="text-7xl md:text-9xl font-heading font-bold text-blue-900 tracking-tighter">37</span>
               </div>
-              <p className="text-2xl md:text-3xl font-black text-green-600 mb-10 md:mb-12 animate-pulse">5 x de R$ 8,19 *</p>
+              <p className="text-2xl md:text-3xl font-black text-green-600 mb-10 md:mb-12">5 x de R$ 8,19 *</p>
               
-              <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-10 text-[10px] md:text-xs font-bold text-blue-400 uppercase tracking-widest">
-                <span>ACESSO VITALÍCIO</span>
-                <span className="hidden md:inline">|</span>
-                <span>ACESSO IMEDIATO</span>
-              </div>
-              
-              <button className="w-full md:w-auto bg-green-500 hover:bg-green-600 text-white font-heading font-bold text-xl md:text-3xl py-6 md:py-8 rounded-2xl md:rounded-3xl shadow-2xl transition-all transform hover:scale-105 mb-10 uppercase">
+              <button className="w-full md:w-auto bg-green-500 hover:bg-green-600 text-white font-heading font-bold text-xl md:text-3xl py-6 md:py-8 px-12 rounded-2xl shadow-2xl transition-all transform hover:scale-105 mb-10 uppercase">
                 BAIXAR ATIVIDADES AGORA
               </button>
               
-              <div className="grid grid-cols-3 gap-2 md:gap-4 opacity-50 text-[8px] md:text-[10px] font-bold text-blue-900 uppercase">
-                <div className="flex flex-col items-center"><ShieldCheck className="w-4 h-4 md:w-5 md:h-5 mb-1" /> Compra SEGURA</div>
-                <div className="flex flex-col items-center"><Award className="w-4 h-4 md:w-5 md:h-5 mb-1" /> Satisfação GARANTIDA</div>
-                <div className="flex flex-col items-center"><Lock className="w-4 h-4 md:w-5 md:h-5 mb-1" /> Privacidade PROTEGIDA</div>
+              <div className="grid grid-cols-3 gap-2 opacity-50 text-[10px] font-bold text-blue-900 uppercase">
+                <div className="flex flex-col items-center"><ShieldCheck className="w-5 h-5 mb-1" /> Compra SEGURA</div>
+                <div className="flex flex-col items-center"><Award className="w-5 h-5 mb-1" /> Satisfação GARANTIDA</div>
+                <div className="flex flex-col items-center"><Lock className="w-5 h-5 mb-1" /> Privacidade PROTEGIDA</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 14: Final Trust & Guarantee */}
+      {/* SECTION 14: FAQ and Guarantee */}
       <section className="bg-white py-16 md:py-24 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-pastel-green p-8 md:p-12 rounded-3xl md:rounded-[4rem] border border-green-100 shadow-sm mb-16 md:mb-20">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-pastel-green p-8 md:p-12 rounded-3xl border border-green-100 mb-16">
             <img src="https://images.tcdn.com.br/img/editor/up/650005/7-dias.png" alt="7 dias" className="w-32 h-32 md:w-48 md:h-48 animate-float" />
             <div className="text-center md:text-left">
               <h3 className="text-2xl md:text-3xl font-heading font-bold text-green-900 mb-4">Garantia incondicional de 7 dias</h3>
-              <p className="text-lg md:text-xl text-gray-700 leading-relaxed">Você tem 7 dias para testar o Kit de Grafismo Fonético. Se por qualquer motivo você não ficar satisfeito(a), basta enviar um e-mail que devolveremos 100% do seu dinheiro, sem burocracia e sem perguntas.</p>
+              <p className="text-lg md:text-xl text-gray-700 leading-relaxed">Se por qualquer motivo você não ficar satisfeito(a), devolvemos 100% do seu dinheiro, sem perguntas.</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-16 md:mb-20">
-            <div className="p-6 md:p-8 bg-gray-50 rounded-2xl md:rounded-[2.5rem] border border-gray-100">
-              <h4 className="text-xl md:text-2xl font-bold text-blue-900 mb-3 md:mb-4">Pagamento 100% Seguro</h4>
-              <p className="text-base md:text-lg text-gray-600">Processado pela Hotmart, líder em produtos digitais no Brasil. Seus dados estão protegidos.</p>
-            </div>
-            <div className="p-6 md:p-8 bg-gray-50 rounded-2xl md:rounded-[2.5rem] border border-gray-100">
-              <h4 className="text-xl md:text-2xl font-bold text-blue-900 mb-3 md:mb-4">Produto Registrado na CBL</h4>
-              <p className="text-base md:text-lg text-gray-600">Obra registrada na Câmara Brasileira do Livro com direito autoral protegido pela Lei nº 9.610/1998.</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center mb-20 md:mb-24 px-2">
-            <div>
-              <p className="text-3xl md:text-5xl font-black text-blue-500 mb-2">+5.000</p>
-              <p className="text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest">Famílias atendidas</p>
-            </div>
-            <div>
-              <p className="text-3xl md:text-5xl font-black text-blue-500 mb-2">Vitalício</p>
-              <p className="text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest">Sem mensalidades</p>
-            </div>
-            <div>
-              <p className="text-3xl md:text-5xl font-black text-blue-500 mb-2">Suporte</p>
-              <p className="text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest">Humanizado</p>
-            </div>
-            <div>
-              <p className="text-3xl md:text-5xl font-black text-blue-500 mb-2">Digital</p>
-              <p className="text-[10px] md:text-sm font-bold text-gray-400 uppercase tracking-widest">Acesso imediato</p>
-            </div>
-          </div>
-
-          {/* FAQ */}
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-center text-blue-900 mb-10 md:mb-16 underline decoration-blue-200 underline-offset-8">Perguntas Frequentes</h2>
-            <div className="space-y-4">
-              {FAQ_DATA.map((item, idx) => (
-                <div key={idx} className="bg-white rounded-2xl md:rounded-3xl overflow-hidden border border-blue-50 shadow-sm transition-all hover:shadow-md">
-                  <button 
-                    onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                    className="w-full text-left p-6 md:p-8 flex justify-between items-center"
-                  >
-                    <span className="text-base md:text-xl font-bold text-blue-900 pr-6 md:pr-8 leading-tight">{item.question}</span>
-                    <ChevronDown className={`w-5 h-5 md:w-6 md:h-6 transition-transform text-blue-300 flex-shrink-0 ${openFaq === idx ? 'rotate-180 text-blue-600' : ''}`} />
-                  </button>
-                  {openFaq === idx && (
-                    <div className="p-6 md:p-8 pt-0 text-base md:text-xl text-gray-500 leading-relaxed border-t border-gray-50 bg-blue-50/20">
-                      {item.answer}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-center text-blue-900 mb-10">Perguntas Frequentes</h2>
+          <div className="space-y-4">
+            {FAQ_DATA.map((item, idx) => (
+              <div key={idx} className="bg-white rounded-2xl border border-blue-50 shadow-sm">
+                <button 
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="w-full text-left p-6 flex justify-between items-center"
+                >
+                  <span className="text-base md:text-xl font-bold text-blue-900">{item.question}</span>
+                  <ChevronDown className={`w-5 h-5 transition-transform text-blue-300 ${openFaq === idx ? 'rotate-180 text-blue-600' : ''}`} />
+                </button>
+                {openFaq === idx && (
+                  <div className="p-6 pt-0 text-base md:text-xl text-gray-500 border-t border-gray-50 bg-blue-50/20">
+                    {item.answer}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="py-12 md:py-16 bg-blue-900 text-white px-4 text-center">
-        <div className="max-w-6xl mx-auto px-2">
-          <h3 className="text-2xl md:text-3xl font-heading font-bold mb-6 md:mb-8">Kit de Grafismo Fonético</h3>
-          <p className="text-blue-200 mb-10 md:mb-12 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">Ajudando pais e educadores a despertar o potencial máximo das crianças através de um método comprovado e lúdico.</p>
-          <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-10 md:mb-12 opacity-50 grayscale invert">
-            <img src="https://logodownload.org/wp-content/uploads/2014/10/visa-logo.png" className="h-4 md:h-6" alt="Visa" />
-            <img src="https://logodownload.org/wp-content/uploads/2014/07/mastercard-logo.png" className="h-6 md:h-10" alt="Mastercard" />
+      <footer className="py-12 bg-blue-900 text-white px-4 text-center">
+        <div className="max-w-6xl mx-auto">
+          <h3 className="text-2xl font-heading font-bold mb-6">Educação Kids</h3>
+          <p className="text-blue-200 mb-10 text-sm">© 2026 Todos os direitos reservados.</p>
+          <div className="flex flex-wrap justify-center gap-6 mb-10 opacity-50 grayscale invert">
             <img src="https://hotmart.com/static/images/logo-hotmart.svg" className="h-6 md:h-10" alt="Hotmart" />
           </div>
-          <p className="text-blue-400 text-[10px] md:text-sm">© 2026 Todos os direitos reservados. Educação Kids.</p>
         </div>
       </footer>
     </div>
