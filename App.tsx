@@ -26,11 +26,12 @@ const App: React.FC = () => {
   const playerRef = useRef<any>(null);
 
   useEffect(() => {
+    // Garantir que o código que usa 'window' ou APIs do browser rode apenas no cliente
     const initPlayer = () => {
-      // @ts-ignore
-      if (videoRef.current && window.Vimeo) {
+      // @ts-ignore - Vimeo is loaded via script tag in index.html
+      if (typeof window !== 'undefined' && videoRef.current && (window as any).Vimeo) {
         // @ts-ignore
-        playerRef.current = new window.Vimeo.Player(videoRef.current);
+        playerRef.current = new (window as any).Vimeo.Player(videoRef.current);
         playerRef.current.setMuted(true);
         playerRef.current.play().catch((error: any) => {
           console.log("Autoplay blocked or error:", error);
@@ -38,7 +39,7 @@ const App: React.FC = () => {
       }
     };
 
-    const timer = setTimeout(initPlayer, 500);
+    const timer = setTimeout(initPlayer, 1000); // Delay para garantir carregamento do script externo
     return () => clearTimeout(timer);
   }, []);
 
@@ -376,6 +377,7 @@ const App: React.FC = () => {
           </h2>
           
           <div className="mb-10 md:mb-12 flex justify-center">
+            {/* Foto solicitada: https://i.imgur.com/fKK43ZL.png */}
             <img src="https://i.imgur.com/fKK43ZL.png" alt="Depoimentos reais" className="rounded-2xl md:rounded-3xl shadow-xl border-4 md:border-8 border-white max-w-full" />
           </div>
           
