@@ -27,8 +27,10 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const initPlayer = () => {
-      if (videoRef.current && (window as any).Vimeo) {
-        playerRef.current = new (window as any).Vimeo.Player(videoRef.current);
+      // @ts-ignore
+      if (videoRef.current && window.Vimeo) {
+        // @ts-ignore
+        playerRef.current = new window.Vimeo.Player(videoRef.current);
         playerRef.current.setMuted(true);
         playerRef.current.play().catch((error: any) => {
           console.log("Autoplay blocked or error:", error);
