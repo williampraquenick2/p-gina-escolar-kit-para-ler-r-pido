@@ -25,7 +25,6 @@ const App: React.FC = () => {
   const videoRef = useRef<HTMLIFrameElement>(null);
   const playerRef = useRef<any>(null);
 
-  // Safe window/browser API initialization for Vercel/SSR compatibility
   useEffect(() => {
     const initPlayer = () => {
       // @ts-ignore - Vimeo is loaded via script tag in index.html
@@ -469,7 +468,7 @@ const App: React.FC = () => {
             {[
               { title: "Caderno Alfabeto com Imagem", desc: "Apresenta cada letra do alfabeto com imagens associadas.", oldPrice: 37 },
               { title: "Caderno Quebra Cabeça Alfabeto", desc: "Atividades de quebra-cabeça com letras do alfabeto.", oldPrice: 47 },
-              { title: "Caderno Formando Palavras", desc: "Exercícios de formação de palavras que incentivam leitura.", oldPrice: 57 },
+              { title: "Caderno Formando Palavras", desc: "Exercícios de formation de palavras que incentivam leitura.", oldPrice: 57 },
               { title: "Caderno Alfabeto com Relógio", desc: "Caderno interativo que ensina as letras junto ao relógio.", oldPrice: 39 },
               { title: "Caderno Alfabeto Traçado", desc: "Caderno perfeito para que as crianças pratiquem a escrita.", oldPrice: 37 },
               { title: "Caderno Alfabeto com Carinhas", desc: "Caderno com expressões divertidas para um alegre aprendizado.", oldPrice: 37 }
