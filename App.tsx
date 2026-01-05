@@ -379,7 +379,7 @@ const App: React.FC = () => {
           </h2>
           
           <div className="mb-10 md:mb-12">
-            <img src="https://picsum.photos/seed/testimonials/1200/800" alt="Depoimentos sociais" className="rounded-2xl md:rounded-3xl shadow-xl mx-auto border-4 md:border-8 border-white max-w-full" />
+            <img src="https://i.imgur.com/fKK43ZL.png" alt="Depoimentos sociais" className="rounded-2xl md:rounded-3xl shadow-xl mx-auto border-4 md:border-8 border-white max-w-full" />
           </div>
           
           <button className="w-full md:w-auto bg-green-500 hover:bg-green-600 text-white font-heading font-bold text-lg md:text-2xl px-10 md:px-12 py-4 md:py-6 rounded-2xl md:rounded-3xl shadow-xl transition-all transform hover:scale-105">
